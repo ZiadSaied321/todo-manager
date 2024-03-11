@@ -1,11 +1,14 @@
 import React from 'react'
-import { TodoCard , CardList} from './components'
+import { TodoCard , CardList ,AddTask} from './components'
+import TodosProvider from './hooks/ContextProvider'
 
 const App = () => {
   return (
-    <>
-    <div className='container mx-auto text-center bg-slate-100 text-blue-950'>MY TODO APP</div>
-    <main className='grid gap-4 grid-cols-1 mx-auto min-w-max max-w-min md:grid-cols-2'>
+    <TodosProvider>
+    <div className='flex flex-row justify-center mt-4'>
+    <AddTask/>
+    </div>
+    <main className='grid gap-4 grid-cols-1 mx-auto min-w-max max-w-min sm:grid-cols-2'>
     <CardList title='Do'>
 
     </CardList>
@@ -19,7 +22,7 @@ const App = () => {
       
     </CardList>
     </main>
-    </>
+    </TodosProvider>
     
   )
 }
