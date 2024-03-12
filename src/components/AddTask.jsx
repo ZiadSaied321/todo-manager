@@ -1,6 +1,7 @@
 import { Dialog } from '@headlessui/react'
 import React, { useState, useContext } from 'react'
 import TodosContext from '../hooks/context'
+import { uid } from 'uid';
 
 const AddTask = () => {
   const { addTodo } = useContext(TodosContext)
@@ -8,7 +9,8 @@ const AddTask = () => {
   const [data, setData] = useState({
     title: '',
     description: '',
-    select: 'Do'
+    select: 'Do',
+    checked:false,
   })
 
   const dataHandler = (action) => {
@@ -27,11 +29,11 @@ const AddTask = () => {
           </Dialog.Title>
           <label htmlFor="task-title">Title: </label>
           <br />
-          <input onChange={dataHandler} value={data.title} name='title' className='w-full' id='task-title' type="text" />
+          <input onChange={dataHandler} value={data.title} name='title' className='w-full px-1' id='task-title' type="text" />
           <br />
           <label htmlFor="task-description">Description: </label>
           <br />
-          <textarea onChange={dataHandler} value={data.description} name="description" id="task-description" cols="30" rows="10"></textarea>
+          <textarea className='px-1' onChange={dataHandler} value={data.description} name="description" id="task-description" cols="30" rows="10"></textarea>
           <br />
           <select onChange={dataHandler} value={data.select} name='select' className='my-2 border rounded-md w-full'>
             <option>Do</option>
@@ -41,12 +43,14 @@ const AddTask = () => {
           </select>
           <div className="flex gap-2 justify-between">
             <button onClick={() => {
-              addTodo(data);
+              addTodo({...data,id:uid()});
               setData({
                 title: '',
                 description: '',
-                select: 'Do'
+                select: 'Do',
+                checked:false
               })
+              setModel(false)
             }} className='text-white font-bold bg-blue-600 rounded-full px-2 py-1'>ADD TO THE LIST</button>
             <button onClick={() => setModel(false)} className='mx-auto text-red-400 font-bold bg-red-100 rounded-full px-2 py-1'>CANCEL</button>
           </div>
